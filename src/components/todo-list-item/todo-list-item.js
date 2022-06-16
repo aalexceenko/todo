@@ -1,40 +1,7 @@
 import React from "react";
 import "./todo-list-item.css";
 
-export default class TodoListItem extends React.Component {
-
-  constructor() {
-    super();
-
-    this.state = {
-      isDone: false,
-      isImportant: false
-    }
-
-    this.onLabelClick = this.onLabelClick.bind(this);
-    this.onMarkImportantClick = this.onMarkImportantClick.bind(this);
-  }
-
-  onLabelClick() {
-    console.log(this.props.label);
-    this.setState((state) => {
-      return {
-        isDone: !state.isDone
-      }
-    })
-  }
-
-  onMarkImportantClick() {
-    this.setState((state) => {
-      return {
-        isImportant: !state.isImportant
-      }
-    })
-  }
-
-  render() {
-    const { label, onDeleted } = this.props;
-    const { isDone, isImportant } = this.state;
+const TodoListItem = ({ label, onDeleted, onToggleDone, onToggleImportant, isDone, isImportant  }) => {
 
     let classNames = "todo-list-item";
     if (isDone) {
@@ -49,13 +16,13 @@ export default class TodoListItem extends React.Component {
       <span className={ classNames }>
         <span
           className="todo-list-item-label"
-          onClick={this.onLabelClick}>
+          onClick={onToggleDone}>
           {label}
         </span>
   
         <button type="button"
                 className="btn btn-outline-success btn-sm float-right"
-                onClick={this.onMarkImportantClick}>
+                onClick={onToggleImportant}>
           <i className="fa fa-exclamation" />
         </button>
   
@@ -66,5 +33,7 @@ export default class TodoListItem extends React.Component {
         </button>
       </span>
     );
-  }
+  
 }
+
+export default TodoListItem;
